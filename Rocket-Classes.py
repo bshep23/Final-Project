@@ -82,6 +82,7 @@ class Rocket:
         self.thrust = engine.thrust*rocket_body.num_eng
         self.TWR = self.thrust/(self.mass*9.8)*1000
         self.num_eng = eval(input("How many Engines do you want?"))
+        # Does not have DeltaV yet 
     
 
     def burn_fuel(self):
@@ -92,17 +93,6 @@ class Rocket:
             self.TWR = self.thrust/(self.mass*9.8)*1000
             
 
-
-
-        
-        
-        
-            
-
-My_Rocket = Rocket(AtlasV,RS25)
-
-
-print(My_Rocket.burn_fuel())
 
             
             
