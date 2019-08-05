@@ -8,16 +8,18 @@
 # -------------------------------------------------
 
             # Orbit Parent Class
-import turtle
+##import turtle
+##
+##orbit = turtle.Turtle()
+##orbit.color("blue")
+##l = turtle.Turtle()
+##l.penup()
+##orbit.speed(.75)
+##orbit.hideturtle()
+##
+## Tried playing with turtle to get some things done
 
-orbit = turtle.Turtle()
-orbit.color("blue")
-l = turtle.Turtle()
-l.penup()
-orbit.speed(.75)
-orbit.hideturtle()
-
-
+    
 turtle.screensize()
 (1000, 1000)
 class Orbit:
@@ -40,5 +42,5 @@ leo = Orbit(200, 1.4, 9.4)
 geo = Orbit(358, 24, 13.31)
 lun_tran = Orbit(0, 0, 15.8)
 
-geo.displayOrbit()
+
 
