@@ -56,7 +56,7 @@ class Engine:
                                                                                 # Info for all costs: https://space.stackexchange.com/questions/4388/what-are-the-costs-of-the-various-different-engines-in-current-use
 
 F1 = Engine(18.5, 8391, 7770, 304, 2542, 65)                                    # INFO: https://web.archive.org/web/20131109232214/http://www.astronautix.com/engines/f1.htm, and wikipedia
-Marlin1D = Engine(7.17, 490, 723, 282, 235, .5)                                 # INFO: http://www.astronautix.com/m/merlin1d.html, and https://www.reddit.com/r/spacex/comments/3lsm0q/f9ft_vs_f9v11_fuel_mass_flow_rate_isp/
+Merlin1D = Engine(7.17, 490, 723, 282, 235, .5)                                 # INFO: http://www.astronautix.com/m/merlin1d.html, and https://www.reddit.com/r/spacex/comments/3lsm0q/f9ft_vs_f9v11_fuel_mass_flow_rate_isp/
 RD180 = Engine(12, 5545, 4152, 313, 1250,23)                                   # INFO: http://my.fit.edu/~dkirk/4262/RD180_Presentation.pdf
 Raptor = Engine(10, 600, 1700,  356, 931,2)                                     # INFO: https://www.nextbigfuture.com/2019/05/spacex-raptor-engine-will-be-best-on-cost-and-nearly-best-on-isp.html
 Rutherford = Engine(17, 38 , 162, 303, .03, .5 )                                    # INFO: http://www.b14643.de/Spacerockets/Specials/Asian_Rocket_engines/engines.htm
@@ -82,21 +82,18 @@ class Rocket:
         self.thrust = engine.thrust*rocket_body.num_eng
         self.TWR = self.thrust/(self.mass*9.8)*1000
         self.num_eng = eval(input("How many Engines do you want?"))
+        self.cost = rocket_body.cost + engine.cost
         # Does not have DeltaV yet 
     
 
     def burn_fuel(self):
-        while self.amount_of_fuel > 0:
-            print(self.TWR)
             self.amount_of_fuel = self.amount_of_fuel - self.engine.burn_rate*self.num_eng
             self.mass = self.dry_mass + self.amount_of_fuel + self.payload
             self.TWR = self.thrust/(self.mass*9.8)*1000
-            
-
-
-            
-            
         
+            
+
+
         
 
 
