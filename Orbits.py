@@ -19,9 +19,6 @@
 ##
 ## Tried playing with turtle to get some things done
 
-    
-turtle.screensize()
-(1000, 1000)
 class Orbit:
     def __init__(self, radius, period, deltaV):
         self.radius = radius/2 #kilometers

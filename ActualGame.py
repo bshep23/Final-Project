@@ -10,17 +10,19 @@ from RocketClasses import *
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((640, 480))
+screen = pygame.display.set_mode((1000, 700))
 white = (255,255,255)
 blue = (0,0,255)
 
-class Circle(pygame.sprite.Sprite):
-    def __init__(self, surface_length, pos):
+# making Circles 
+class Rects(pygame.sprite.Sprite):
+    def __init__(self, left,top,width,height):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface(surface_length, pygame.SRCALPHA, 32)
-        pygame.draw.circle(self.image, blue, pos, 40)
+        self.image = pygame.Surface((40,40), pygame.SRCALPHA, 32)
+        self.rect1 = pygame.Rect((left,top),(width,height))
+        pygame.draw.rect(self.image, blue, self.rect1)
         self.rect = self.image.get_rect()
-        self.rect.center = [320,240]
+        self.rect.center = ((left+width/2),(top+height/2))
         self.image = self.image.convert_alpha()
     def update(self):
         pass   
@@ -29,34 +31,84 @@ def draw(sprites):
     sprites.draw(screen)
     pygame.display.flip()
 
+# Making Rocket Body options
+SaturnV_option = Rects(60,60,40,40)
+Falcon_option = Rects(160,60,40,40)
+Electron_option = Rects(260,60,40,40)
+Atlas_option = Rects(360,60,40,40)
+STS_option = Rects(460,60,40,40)
 
-circle1 = Circle((300,300),[200,200])
-circle2 = Circle((500,500),[400,400])
+# Making Engine Options
 
-list_of_circles = pygame.sprite.Group(circle1)
-list_of_circles.add(circle2)
+##F1_option = Rects((100,500))
+##Merlin_option = Rects((250,500))
+##RD_option = Rects((400,500))
+##Raptor_option = Rects((550,500))
+##Ruth_option = Rects((700,500))
+##RS25_option = Rects((850,500))
+
+
+#
+
+
+list_of_circles = pygame.sprite.Group(SaturnV_option)
+list_of_circles.add(Falcon_option,Electron_option,Atlas_option,STS_option)
+                    #F1_option,Merlin_option,RD_option,Raptor_option,Ruth_option,
+                    #RS25_option)
 
 
 
 running = True
 
-while running:
+while running:     # start the game!
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
           running = False
           
     draw(list_of_circles)
     
-    if pygame.mouse.get_pressed()[0]:
+    if pygame.mouse.get_pressed()[0]: # checking to see which rocket body the user choose
         pos = pygame.mouse.get_pos()
-        if circle1.rect.collidepoint(pos):
+        if SaturnV_option.rect.collidepoint(pos):
             x = SaturnV
-            print(x)
-        elif circle2.rect.collidepoint(pos):
+            print(x.wet_mass)
+        elif Falcon_option.rect.collidepoint(pos):
+            x = Falcon9
+            print(x.wet_mass)
+        elif Electron_option.rect.collidepoint(pos):
+            x = Electron
+            print(x.wet_mass)
+        elif Atlas_option.rect.collidepoint(pos):
+                x = AtlasV
+                print(x.wet_mass)
+        elif STS_option.rect.collidepoint(pos):
+                x = STS
+                print(x.wet_mass)
+
+        
+    if pygame.mouse.get_pressed()[0]: # checking to see which engine the user choose
+        pos = pygame.mouse.get_pos()
+        if F1_option.rect.collidepoint(pos):
+            x = F1
+            print(x.mass)
+        elif Merlin_option.rect.collidepoint(pos):
             x = Merlin1D
-            print(x)
+            print(x.mass)
+        elif Raptor_option.rect.collidepoint(pos):
+            x = Raptor
+            print(x.mass)
+        elif Ruth_option.rect.collidepoint(pos):
+                x = Rutherford
+                print(x.mass)
+        elif RS25_option.rect.collidepoint(pos):
+                x = RS25
+                print(x.mass)
+        elif RD_option.rect.collidepoint(pos):
+                x = RD180
+                print(x.mass)
+
     
-            
+    
         
     
     
