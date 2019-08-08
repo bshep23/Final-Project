@@ -40,7 +40,7 @@ class Circle(pygame.sprite.Sprite):
 class Circle1(pygame.sprite.Sprite):
     def __init__(self, pos, color):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((150,50), pygame.SRCALPHA, 32)
+        self.image = pygame.Surface((150,25), pygame.SRCALPHA, 32)
         pygame.draw.circle(self.image, color, (40,40), 200)
         self.rect = self.image.get_rect()
         self.rect.center = pos
@@ -120,6 +120,8 @@ Electron_i = pygame.transform.scale(Electron_i, (100,150))
 STS_i = pygame.image.load("Space Shuttle.jpg")
 STS_i = pygame.transform.scale(STS_i, (100,150))
 
+bg_i = pygame.image.load("BackGround1.jpg")
+
 
 
 # Writing Text for Objects
@@ -133,6 +135,81 @@ SaturnText2 = myfont.render(Sat_message2, 10,(0,0,0))
 SaturnText3 = myfont.render(Sat_message3, 10,(0,0,0))
 SaturnText4 = myfont.render(Sat_message4, 10, (0,0,0))
 
+# Functions To Write Stats
+
+def writeStatsB():
+    file = open("Stats.txt" , "r")
+    stats = file.readlines()
+    deltax = 150
+    counter = 0
+    for s in stats[0:5]:
+        s = s.split(",")
+        name = "Name: " + str(s[0]) 
+        height = "Height: " + str(s[1]) + "ft"
+        dry_mass = "Dry Mass: " + str(s[2]) + "Kg"
+        wet_mass = "Wet Mass: " + str(s[3]) + "Kg"
+        amount_of_fuel = "Amount of Fuel: " + str(s[4]) + "Kg"
+        cost = "Cost: " + "$" + str( int(s[7])/1000000) + " million"
+        nameText = myfont.render(name,10,(0,0,0))
+        heightText = myfont.render(height,10,(0,0,0))
+        dry_massText = myfont.render(dry_mass,10,(0,0,0))
+        amount_of_fuelText = myfont.render(amount_of_fuel,10,(0,0,0))
+        costText = myfont.render(cost,10,(0,0,0))
+        screen.blit(nameText,(150 + deltax*counter,100+80))
+        screen.blit(heightText,(150 + deltax*counter,100+90))
+        screen.blit(dry_massText,(150 + deltax*counter,100+100))
+        screen.blit(amount_of_fuelText,(150 + deltax*counter,100+110))
+        screen.blit(costText,(150 + deltax*counter,100+120))
+        counter +=1 
+        
+def writeStatsE():
+    file = open("Stats.txt" , "r")
+    stats = file.readlines()
+    deltax = 150
+    counter = 0
+    for s in stats[5:]:
+        s = s.split(",")
+        name = "Name: " + str(s[0]) 
+        height = "Height: " + str(s[1]) + "ft"
+        mass =  "Mass: " + str(s[2]) + "Kg"
+        Thrust = "Thrust: " + str(s[3]) + "KN"
+        ISP = "ISP: " + str(s[4]) + "secs"
+        burn_rate = "Burn Rate: " + str(s[5]) + "Kg/sec"
+        cost = "Cost: " + "$" + str( s[6])  + " million"
+        nameText = myfont.render(name,10,(0,0,0))
+        heightText = myfont.render(height,10,(0,0,0))
+        massText = myfont.render(mass,10,(0,0,0))
+        ThrustText = myfont.render(Thrust,10,(0,0,0))
+        ISPText = myfont.render(ISP,10,(0,0,0))
+        burn_rateText = myfont.render(burn_rate,10,(0,0,0))
+        costText = myfont.render(cost,10,(0,0,0))
+        screen.blit(nameText,(150-50 + deltax*counter,600-75+150))
+        screen.blit(heightText,(150-50 + deltax*counter,600-75+10+150))
+        screen.blit(massText,(150-50 + deltax*counter,600-75+20+150))
+        screen.blit(ThrustText,(150-50 + deltax*counter,600-75+30+150))
+        screen.blit(ISPText,(150-50 + deltax*counter,600-75+40+150))
+        screen.blit(costText,(150-50 + deltax*counter,600-75+50+150))
+        counter +=1 
+        
+        
+def RocketStats(rocket):
+    mass = "Mass: " + str(rocket.mass) + " That's " + str(rocket.mass//5896) + " " + "elephants!"
+    height = "Height: " + str(rocket.height) + " That's " + str(rocket.height//2.6) +" " + "Shaqs!"
+    TWR = "Thrust to Weight on the Pad is " + str(rocket.TWR) 
+    Thrust = "Thrust: "  + str(rocket.thrust) + " That's " + str(rocket.TWR/745) + " " + "horses"
+    cost = "Cost: " + str(rocket.cost) + " That's a lot of money!"
+    br = "Burn Rate: " + str(rocket.burn_rate) + "kg/sec" + " That's " + str(rocket.burn_rate/.5) + " water bottles per second"
+    massText = myfont.render(mass,10,(0,0,0))
+    heightText = myfont.render(height,10,(0,0,0))
+    TWRText = myfont.render(TWR,10,(0,0,0))
+    thrustText = myfont.render(Thrust,10,(0,0,0))
+    costText = myfont.render(cost,10,(0,0,0))
+    brText = myfont.render(br,10,(0,0,0))
+    screen.blit(massText, (110,260))
+    
+    
+
+pygame.display.flip()
 body = ""
 engine = ""
 counter = 0
@@ -144,19 +221,10 @@ while running:     # start the game!
         if event.type == pygame.QUIT:
           running = False
 
-          
+    
     draw(list_of_circles)
-
-    
-
-    # writing text 
-    screen.blit(SaturnText,(150+50-50,100+90))
-    screen.blit(SaturnText2,(150+50-50,100+100))
-    screen.blit(SaturnText3,(150+50-50,100+80))
-    screen.blit(SaturnText4,(150+50-50,100+110))
-    
-
-
+    writeStatsB()
+    writeStatsE()
     # putting images
     screen.blit(RS25_i, (900-50,600-75))
     screen.blit(F1_i, (150-50,600-75))
@@ -172,8 +240,8 @@ while running:     # start the game!
     
     # drawing rectangle to middle of the screen for the stats
 
-    box = pygame.Rect(100,250, 800,200)
-    pygame.draw.rect(screen, blue, box)
+##    box = pygame.Rect(100,250, 800,200)
+##    pygame.draw.rect(screen, blue, box)
     pygame.display.flip()
 
     # getting text to put on the rectangle
@@ -220,7 +288,9 @@ while running:     # start the game!
                 
     if body != "" and engine != "" and counter <1:
         rocket = Rocket(body,engine)
+        RocketStats(rocket)
         counter +=1
+        
 
 
     
