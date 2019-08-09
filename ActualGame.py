@@ -11,15 +11,15 @@ import pygame
 pygame.font.init()
 
 # from https://stackoverflow.com/questions/10077644/python-display-text-with-font-color
-myfont = pygame.font.SysFont("monospace",15)
-
+myfont = pygame.font.SysFont("timesnewroman",15)
+myfont2 = pygame.font.SysFont("timesnewroman",20)
 
 
 pygame.init()
 screen = pygame.display.set_mode((1000, 800))
 white = (255,255,255)
 red = (255,0,0)
-blue = (0,0,255)
+blue = (100,100,200)
 green = (0,255,0)
 
 # making Circles 
@@ -124,16 +124,6 @@ bg_i = pygame.image.load("BackGround1.jpg")
 
 
 
-# Writing Text for Objects
-
-Sat_message = "Mass:" + "  " + str(SaturnV.wet_mass)
-Sat_message2 = "Amount of Fuel:" + " " + str(SaturnV.amount_of_fuel)
-Sat_message3 = "Name:" + " " + "SaturnV"
-Sat_message4 = "Cost:" + " " + str(SaturnV.cost)
-SaturnText = myfont.render(Sat_message, 10,(0,0,0))
-SaturnText2 = myfont.render(Sat_message2, 10,(0,0,0))
-SaturnText3 = myfont.render(Sat_message3, 10,(0,0,0))
-SaturnText4 = myfont.render(Sat_message4, 10, (0,0,0))
 
 # Functions To Write Stats
 
@@ -193,19 +183,22 @@ def writeStatsE():
         
         
 def RocketStats(rocket):
-    mass = "Mass: " + str(rocket.mass) + " That's " + str(rocket.mass//5896) + " " + "elephants!"
-    height = "Height: " + str(rocket.height) + " That's " + str(rocket.height//2.6) +" " + "Shaqs!"
+    mass = "Mass: " + str(rocket.mass) + "Kg" + " That's " + str(rocket.mass//5896) + " " + "elephants!"
+    height = "Height: " + str(rocket.height) + "ft" + " That's " + str(rocket.height//2.6) +" " + "Shaqs!"
     TWR = "Thrust to Weight on the Pad is " + str(rocket.TWR) 
-    Thrust = "Thrust: "  + str(rocket.thrust) + " That's " + str(rocket.TWR/745) + " " + "horses"
+    Thrust = "Thrust: "  + str(rocket.thrust) + "KN" + " That's " + str(rocket.thrust/510) + " " + "Boeing 777 Engines at full Thrust!"
     cost = "Cost: " + str(rocket.cost) + " That's a lot of money!"
     br = "Burn Rate: " + str(rocket.burn_rate) + "kg/sec" + " That's " + str(rocket.burn_rate/.5) + " water bottles per second"
-    massText = myfont.render(mass,10,(0,0,0))
-    heightText = myfont.render(height,10,(0,0,0))
-    TWRText = myfont.render(TWR,10,(0,0,0))
-    thrustText = myfont.render(Thrust,10,(0,0,0))
-    costText = myfont.render(cost,10,(0,0,0))
-    brText = myfont.render(br,10,(0,0,0))
-    screen.blit(massText, (110,260))
+    dv = "You're DeltaV is " + str(rocket.DeltaV) + "m/s"
+    massText = myfont2.render(mass,10,(0,0,0))
+    heightText = myfont2.render(height,10,(0,0,0))
+    TWRText = myfont2.render(TWR,10,(0,0,0))
+    thrustText = myfont2.render(Thrust,10,(0,0,0))
+    costText = myfont2.render(cost,10,(0,0,0))
+    brText = myfont2.render(br,10,(0,0,0))
+    dvText = myfont2.render(dv,10,(0,0,0))
+    text_list = [massText, heightText, TWRText, thrustText, brText,dvText]
+    return text_list 
     
     
 
@@ -221,7 +214,8 @@ while running:     # start the game!
         if event.type == pygame.QUIT:
           running = False
 
-    
+   
+        
     draw(list_of_circles)
     writeStatsB()
     writeStatsE()
@@ -240,8 +234,8 @@ while running:     # start the game!
     
     # drawing rectangle to middle of the screen for the stats
 
-##    box = pygame.Rect(100,250, 800,200)
-##    pygame.draw.rect(screen, blue, box)
+    box = pygame.Rect(75,275, 1000,175)
+    pygame.draw.rect(screen, blue, box)
     pygame.display.flip()
 
     # getting text to put on the rectangle
@@ -288,18 +282,18 @@ while running:     # start the game!
                 
     if body != "" and engine != "" and counter <1:
         rocket = Rocket(body,engine)
-        RocketStats(rocket)
-        counter +=1
+        x = RocketStats(rocket)
+        counter += 1
+
+    if counter == 1:
+        screen.blit(x[0], (100,300))
+        screen.blit(x[1], (100,350))
+        screen.blit(x[2], (100,400))
+        screen.blit(x[3], (500,300))
+        screen.blit(x[4], (500,350))
+        screen.blit(x[5], (500,400))
+        pygame.display.flip()
         
 
-
-    
-
-    
-
-    if pygame.mouse.get_pressed()[0]: # checking to see if user wants to refresh the screen
-        pos = pygame.mouse.get_pos()
-        if next_button.rect.collidepoint(pos):
-           pygame.display.flip()
     
 

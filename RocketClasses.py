@@ -84,16 +84,18 @@ class Rocket:
         self.TWR = self.thrust/(self.mass*9.8)*1000
         self.num_eng = eval(input("How many Engines do you want?"))
         self.cost = rocket_body.cost + engine.cost
-        # Does not have DeltaV yet 
+        self.burn_rate = engine.burn_rate*self.num_eng
     
 
     def burnFuel(self):
-        self.amount_of_fuel = self.amount_of_fuel - self.engine.burn_rate*self.num_eng
+        self.amount_of_fuel = self.amount_of_fuel - self.burn_rate
         self.mass = self.dry_mass + self.amount_of_fuel + self.payload
         self.TWR = self.thrust/(self.mass*9.8)*1000
         self.TWR = round(self.TWR, 2)
         
-            
+
+
+
 
 
         
